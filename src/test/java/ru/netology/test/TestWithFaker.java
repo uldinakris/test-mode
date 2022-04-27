@@ -33,6 +33,7 @@ public class TestWithFaker {
 
         String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
         assertEquals("http://localhost:9999/dashboard", currentUrl);
+        $x("//h2[contains(., 'Личный кабинет')]").should(Condition.visible);
 
     }
 
@@ -57,7 +58,9 @@ public class TestWithFaker {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//span[@data-test-id='login']//input").val(info.getLogin());
-        $x("//span[@data-test-id='password']//input").val("erergdfgdfh");
+        $x("//span[@data-test-id='password']//input").val(
+                RegisterUserHelper.registerUser("active").getPassword()
+        );
         $x("//button[contains(., 'Продолжить')]").click();
         $x("//div[@data-test-id='error-notification']//div[contains(., 'Неверно указан логин или пароль')]")
                 .should(Condition.visible, Duration.ofSeconds(15));
@@ -70,7 +73,9 @@ public class TestWithFaker {
         info = RegisterUserHelper.registerUser("active");
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
-        $x("//span[@data-test-id='login']//input").val("FakeUser");
+        $x("//span[@data-test-id='login']//input").val(
+                RegisterUserHelper.registerUser("active").getLogin()
+        );
         $x("//span[@data-test-id='password']//input").val(info.getPassword());
         $x("//button[contains(., 'Продолжить')]").click();
         $x("//div[@data-test-id='error-notification']//div[contains(., 'Неверно указан логин или пароль')]")
