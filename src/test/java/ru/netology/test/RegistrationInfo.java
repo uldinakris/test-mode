@@ -6,5 +6,9 @@ import lombok.Data;
 public class RegistrationInfo {
     private final String login;
     private final String password;
-    private final String status;
+
+    private String status = "active";
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -5,7 +5,6 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,7 +23,9 @@ public class RegisterUserHelper {
 
         userInfo = DataGenerator
                 .Registration
-                .generateInfo("ru", status);
+                .generateInfo("ru");
+
+        userInfo.setStatus(status);
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(userInfo);

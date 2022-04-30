@@ -3,12 +3,9 @@ package ru.netology.test;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
@@ -59,7 +56,7 @@ public class TestWithFaker {
         open("http://localhost:9999");
         $x("//span[@data-test-id='login']//input").val(info.getLogin());
         $x("//span[@data-test-id='password']//input").val(
-                RegisterUserHelper.registerUser("active").getPassword()
+                DataGenerator.Registration.generatePassword()
         );
         $x("//button[contains(., 'Продолжить')]").click();
         $x("//div[@data-test-id='error-notification']//div[contains(., 'Неверно указан логин или пароль')]")
@@ -74,7 +71,7 @@ public class TestWithFaker {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//span[@data-test-id='login']//input").val(
-                RegisterUserHelper.registerUser("active").getLogin()
+                DataGenerator.Registration.generateUsername()
         );
         $x("//span[@data-test-id='password']//input").val(info.getPassword());
         $x("//button[contains(., 'Продолжить')]").click();
